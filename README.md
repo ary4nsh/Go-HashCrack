@@ -6,7 +6,7 @@ A high-performance, multi-threaded hash cracking tool written in Go that support
 - SHA-1: --sha1
 - SHA-2 Family: --sha224, --sha256, --sha384, --sha512, --sha512-224, --sha512-256
 - SHA-3 Family: --sha3-224, --sha3-256, --sha3-384, --sha3-512
-- MD5: --md5 (Legacy - not recommended for security)
+- MD5: --md5
 - BLAKE2: --blake2b-256, --blake2b-384, --blake2b-512, --blake2s-256
 - BLAKE3: --blake3-256, --blake3-512
 
