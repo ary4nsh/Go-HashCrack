@@ -6,11 +6,15 @@ import (
     "sync"
 
     "Go-HashCrack/libs"
+    "Go-HashCrack/libs/md2"
 
     "github.com/spf13/cobra"
 )
 
 type Flags struct {
+    bcryptFlag	    bool
+    md2Flag 	    bool
+    md4Flag 	    bool
     md5Flag         bool
     sha1Flag        bool
     sha224Flag      bool
@@ -34,11 +38,12 @@ type Flags struct {
 }
 
 func anyFlagSet(flags Flags) bool {
-    return flags.md5Flag || flags.sha1Flag || flags.sha224Flag || flags.sha256Flag ||
-        flags.sha384Flag || flags.sha512Flag || flags.sha512_224Flag || flags.sha512_256Flag ||
-        flags.sha3_224Flag || flags.sha3_256Flag || flags.sha3_384Flag || flags.sha3_512Flag ||
-        flags.blake2b_256Flag || flags.blake2b_384Flag || flags.blake2b_512Flag ||
-        flags.blake2s_256Flag || flags.blake3_256Flag || flags.blake3_512Flag
+    return flags.bcryptFlag || 
+        flags.md2Flag ||flags.md4Flag || flags.md5Flag || flags.sha1Flag || flags.sha224Flag ||
+        flags.sha256Flag || flags.sha384Flag || flags.sha512Flag || flags.sha512_224Flag ||
+        flags.sha512_256Flag || flags.sha3_224Flag || flags.sha3_256Flag || flags.sha3_384Flag ||
+        flags.sha3_512Flag || flags.blake2b_256Flag || flags.blake2b_384Flag || 
+        flags.blake2b_512Flag || flags.blake2s_256Flag || flags.blake3_256Flag || flags.blake3_512Flag
 }
 
 func main() {
@@ -84,6 +89,33 @@ func main() {
 
             var wg sync.WaitGroup
             functions := map[bool]func(){
+                flags.bcryptFlag: func() {
+		    for _, hash := range hashes {
+                        wg.Add(1)
+                        go func(h string) {
+                            defer wg.Done()
+                            libs.CheckBcrypt(h, passwords)
+                        }(hash)
+                    }
+                },
+                flags.md2Flag: func() {
+		    for _, hash := range hashes {
+                        wg.Add(1)
+                        go func(h string) {
+                            defer wg.Done()
+                            md2.CheckMD2(h, passwords)
+                        }(hash)
+                    }
+                },
+                flags.md4Flag: func() {
+		    for _, hash := range hashes {
+                        wg.Add(1)
+                        go func(h string) {
+                            defer wg.Done()
+                            libs.CheckMD4(h, passwords)
+                        }(hash)
+                    }
+                },
                 flags.md5Flag: func() {
                     for _, hash := range hashes {
                         wg.Add(1)
@@ -262,6 +294,9 @@ func main() {
     rootCmd.Flags().SetInterspersed(true)
 
     // Hash algorithm flags
+    rootCmd.Flags().BoolVarP(&flags.bcryptFlag, "bcrypt", "", false, "Crack bcrypt hashes")
+    rootCmd.Flags().BoolVarP(&flags.md2Flag, "md2", "", false, "Crack MD2 hashes")
+    rootCmd.Flags().BoolVarP(&flags.md4Flag, "md4", "", false, "Crack MD4 hashes")
     rootCmd.Flags().BoolVarP(&flags.md5Flag, "md5", "", false, "Crack MD5 hashes")
     rootCmd.Flags().BoolVarP(&flags.sha1Flag, "sha1", "", false, "Crack SHA-1 hashes")
     rootCmd.Flags().BoolVarP(&flags.sha224Flag, "sha224", "", false, "Crack SHA-224 hashes")
