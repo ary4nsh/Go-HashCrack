@@ -34,7 +34,7 @@ Flags:
       --sha512            Crack SHA-512 hashes
       --sha512-224        Crack SHA512/224 hashes
       --sha512-256        Crack SHA512/256 hashes
-  -w, --wordlist string   Path to the wordlist file
+      --wordlist string   Path to the wordlist file
 ```
 
 ## Examples
