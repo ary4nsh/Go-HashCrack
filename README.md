@@ -23,7 +23,7 @@ Flags:
       --blake2s-256       Crack BLAKE2s-256 hashes
       --blake3-256        Crack BLAKE3-256 hashes
       --blake3-512        Crack BLAKE3-512 hashes
-  -h, --help              help for go-hashcrack
+  -h, --help              help for Go-HashCrack
       --md2               Crack MD2 hashes
       --md4               Crack MD4 hashes
       --md5               Crack MD5 hashes
