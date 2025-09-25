@@ -15,6 +15,7 @@ A high-performance, multi-threaded hash cracking tool written in Go that support
   Go-HashCrack --[hash flag(s)] [hash file] --wordlist [path to your wordlist]
 
 Flags:
+      --bcrypt            Crack bcrypt hashes
       --blake2b-256       Crack BLAKE2b-256 hashes
       --blake2b-384       Crack BLAKE2b-384 hashes
       --blake2b-512       Crack BLAKE2b-512 hashes
@@ -22,6 +23,8 @@ Flags:
       --blake3-256        Crack BLAKE3-256 hashes
       --blake3-512        Crack BLAKE3-512 hashes
   -h, --help              help for go-hashcrack
+      --md2               Crack MD2 hashes
+      --md4               Crack MD4 hashes
       --md5               Crack MD5 hashes
       --sha1              Crack SHA-1 hashes
       --sha224            Crack SHA-224 hashes
